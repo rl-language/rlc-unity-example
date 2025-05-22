@@ -453,12 +453,6 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_m_can_mark__Game_BIntT0T3T_BIntT0T3T_r_bool rl_m_can_mark__Game_BIntT0T3T_BIntT0T3T_r_bool;
     public delegate void Delegaterl_m_is_done__Game_r_bool(ref bool __result, ref Game.Content self);
     public static Delegaterl_m_is_done__Game_r_bool rl_m_is_done__Game_r_bool;
-    public delegate void Delegaterl_get_current_player__Game_r_int64_t(ref long __result, ref Game.Content g);
-    public static Delegaterl_get_current_player__Game_r_int64_t rl_get_current_player__Game_r_int64_t;
-    public delegate void Delegaterl_score__Game_int64_t_r_double(ref double __result, ref Game.Content g, ref long player_id);
-    public static Delegaterl_score__Game_int64_t_r_double rl_score__Game_int64_t_r_double;
-    public delegate void Delegaterl_get_num_players__r_int64_t(ref long __result);
-    public static Delegaterl_get_num_players__r_int64_t rl_get_num_players__r_int64_t;
 internal static string SharedLibExtension =>
  RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? ".dll" :
 RuntimeInformation.IsOSPlatform(OSPlatform.OSX)     ? ".dylib" :
@@ -1119,15 +1113,6 @@ private static IntPtr _lib;
         IntPtr rl_m_is_done__Game_r_bool_ptr = GetProcAddress(_lib, "rl_m_is_done__Game_r_bool");
         if (rl_m_is_done__Game_r_bool_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_is_done__Game_r_bool");
         rl_m_is_done__Game_r_bool = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_is_done__Game_r_bool>(rl_m_is_done__Game_r_bool_ptr);
-        IntPtr rl_get_current_player__Game_r_int64_t_ptr = GetProcAddress(_lib, "rl_get_current_player__Game_r_int64_t");
-        if (rl_get_current_player__Game_r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_get_current_player__Game_r_int64_t");
-        rl_get_current_player__Game_r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_get_current_player__Game_r_int64_t>(rl_get_current_player__Game_r_int64_t_ptr);
-        IntPtr rl_score__Game_int64_t_r_double_ptr = GetProcAddress(_lib, "rl_score__Game_int64_t_r_double");
-        if (rl_score__Game_int64_t_r_double_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_score__Game_int64_t_r_double");
-        rl_score__Game_int64_t_r_double = Marshal.GetDelegateForFunctionPointer<Delegaterl_score__Game_int64_t_r_double>(rl_score__Game_int64_t_r_double_ptr);
-        IntPtr rl_get_num_players__r_int64_t_ptr = GetProcAddress(_lib, "rl_get_num_players__r_int64_t");
-        if (rl_get_num_players__r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_get_num_players__r_int64_t");
-        rl_get_num_players__r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_get_num_players__r_int64_t>(rl_get_num_players__r_int64_t_ptr);
     }
 
     public static void teardown() {
@@ -1350,9 +1335,6 @@ private static IntPtr _lib;
         rl_m_mark__Game_BIntT0T3T_BIntT0T3T = null;
         rl_m_can_mark__Game_BIntT0T3T_BIntT0T3T_r_bool = null;
         rl_m_is_done__Game_r_bool = null;
-        rl_get_current_player__Game_r_int64_t = null;
-        rl_score__Game_int64_t_r_double = null;
-        rl_get_num_players__r_int64_t = null;
         RLCNative.FreeLibrary(_lib);_lib = IntPtr.Zero;
     }
 
@@ -1966,21 +1948,64 @@ unsafe class RLC {
         return __result;
     }
 
-    public static long get_current_player(Game g){
+}
+
+unsafe public class VectorTint8_tT{
+    public Content* __content;
+    private bool owning;
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Content {
+        private sbyte* _data;
+        private long _size;
+        private long _capacity;
+    }
+    public VectorTint8_tT(VectorTint8_tT.Content* referred) {
+        owning = false;
+        __content = referred;
+    }
+    public VectorTint8_tT() {
+        __content = (VectorTint8_tT.Content*) Marshal.AllocHGlobal(sizeof(VectorTint8_tT.Content));
+        owning = true;
+        RLCNative.rl_m_init__VectorTint8_tT(ref *this.__content);
+    }
+    ~VectorTint8_tT() {
+        if (!owning)
+            return;
+            RLCNative.rl_m_drop__VectorTint8_tT(ref *this.__content);
+    Marshal.FreeHGlobal((IntPtr)__content);
+    }
+    public void assign(VectorTint8_tT other) {    RLCNative.rl_m_assign__VectorTint8_tT_VectorTint8_tT(ref *this.__content, ref *other.__content);
+    }
+
+    public sbyte back(){
+        sbyte* __result = null;
+        RLCNative.rl_m_back__VectorTint8_tT_r_int8_tRef(ref __result, ref *this.__content);
+        return * __result;
+    }
+
+    public void drop_back(long quantity){
+        RLCNative.rl_m_drop_back__VectorTint8_tT_int64_t(ref *this.__content, ref quantity);
+    }
+
+    public sbyte get(long index){
+        sbyte* __result = null;
+        RLCNative.rl_m_get__VectorTint8_tT_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
+        return * __result;
+    }
+
+    public long size(){
         long __result = 0;
-        RLCNative.rl_get_current_player__Game_r_int64_t(ref __result, ref *g.__content);
+        RLCNative.rl_m_size__VectorTint8_tT_r_int64_t(ref __result, ref *this.__content);
         return __result;
     }
 
-    public static double score(Game g, long player_id){
-        double __result = 0;
-        RLCNative.rl_score__Game_int64_t_r_double(ref __result, ref *g.__content, ref player_id);
-        return __result;
+    public void append(sbyte value){
+        RLCNative.rl_m_append__VectorTint8_tT_int8_t(ref *this.__content, ref value);
     }
 
-    public static long get_num_players(){
-        long __result = 0;
-        RLCNative.rl_get_num_players__r_int64_t(ref __result);
+    public sbyte pop(){
+        sbyte __result = 0;
+        RLCNative.rl_m_pop__VectorTint8_tT_r_int8_t(ref __result, ref *this.__content);
         return __result;
     }
 
@@ -2013,75 +2038,14 @@ unsafe public class VectorTboolT{
     public void assign(VectorTboolT other) {    RLCNative.rl_m_assign__VectorTboolT_VectorTboolT(ref *this.__content, ref *other.__content);
     }
 
-    public bool get(long index){
-        bool* __result = null;
-        RLCNative.rl_m_get__VectorTboolT_int64_t_r_boolRef(ref __result, ref *this.__content, ref index);
-        return * __result;
-    }
-
     public void append(bool value){
         RLCNative.rl_m_append__VectorTboolT_bool(ref *this.__content, ref value);
     }
 
-}
-
-unsafe public class VectorTint8_tT{
-    public Content* __content;
-    private bool owning;
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Content {
-        private sbyte* _data;
-        private long _size;
-        private long _capacity;
-    }
-    public VectorTint8_tT(VectorTint8_tT.Content* referred) {
-        owning = false;
-        __content = referred;
-    }
-    public VectorTint8_tT() {
-        __content = (VectorTint8_tT.Content*) Marshal.AllocHGlobal(sizeof(VectorTint8_tT.Content));
-        owning = true;
-        RLCNative.rl_m_init__VectorTint8_tT(ref *this.__content);
-    }
-    ~VectorTint8_tT() {
-        if (!owning)
-            return;
-            RLCNative.rl_m_drop__VectorTint8_tT(ref *this.__content);
-    Marshal.FreeHGlobal((IntPtr)__content);
-    }
-    public void assign(VectorTint8_tT other) {    RLCNative.rl_m_assign__VectorTint8_tT_VectorTint8_tT(ref *this.__content, ref *other.__content);
-    }
-
-    public void drop_back(long quantity){
-        RLCNative.rl_m_drop_back__VectorTint8_tT_int64_t(ref *this.__content, ref quantity);
-    }
-
-    public sbyte get(long index){
-        sbyte* __result = null;
-        RLCNative.rl_m_get__VectorTint8_tT_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
+    public bool get(long index){
+        bool* __result = null;
+        RLCNative.rl_m_get__VectorTboolT_int64_t_r_boolRef(ref __result, ref *this.__content, ref index);
         return * __result;
-    }
-
-    public sbyte back(){
-        sbyte* __result = null;
-        RLCNative.rl_m_back__VectorTint8_tT_r_int8_tRef(ref __result, ref *this.__content);
-        return * __result;
-    }
-
-    public void append(sbyte value){
-        RLCNative.rl_m_append__VectorTint8_tT_int8_t(ref *this.__content, ref value);
-    }
-
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTint8_tT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
-    }
-
-    public sbyte pop(){
-        sbyte __result = 0;
-        RLCNative.rl_m_pop__VectorTint8_tT_r_int8_t(ref __result, ref *this.__content);
-        return __result;
     }
 
 }
@@ -2113,16 +2077,6 @@ unsafe public class VectorTdoubleT{
     public void assign(VectorTdoubleT other) {    RLCNative.rl_m_assign__VectorTdoubleT_VectorTdoubleT(ref *this.__content, ref *other.__content);
     }
 
-    public void resize(long new_size){
-        RLCNative.rl_m_resize__VectorTdoubleT_int64_t(ref *this.__content, ref new_size);
-    }
-
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTdoubleT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
-    }
-
     public double pop(){
         double __result = 0;
         RLCNative.rl_m_pop__VectorTdoubleT_r_double(ref __result, ref *this.__content);
@@ -2133,6 +2087,16 @@ unsafe public class VectorTdoubleT{
         double* __result = null;
         RLCNative.rl_m_get__VectorTdoubleT_int64_t_r_doubleRef(ref __result, ref *this.__content, ref index);
         return * __result;
+    }
+
+    public void resize(long new_size){
+        RLCNative.rl_m_resize__VectorTdoubleT_int64_t(ref *this.__content, ref new_size);
+    }
+
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__VectorTdoubleT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
     }
 
     public void append(double value){
@@ -2166,37 +2130,8 @@ unsafe public class String{
     public void assign(String other) {    RLCNative.rl_m_assign__String_String(ref *this.__content, ref *other.__content);
     }
 
-    public sbyte back(){
-        sbyte* __result = null;
-        RLCNative.rl_m_back__String_r_int8_tRef(ref __result, ref *this.__content);
-        return * __result;
-    }
-
     public void drop_back(long quantity){
         RLCNative.rl_m_drop_back__String_int64_t(ref *this.__content, ref quantity);
-    }
-
-    public bool not_equal(String other){
-        bool __result = false;
-        RLCNative.rl_m_not_equal__String_String_r_bool(ref __result, ref *this.__content, ref *other.__content);
-        return __result;
-    }
-
-    public bool equal(String other){
-        bool __result = false;
-        RLCNative.rl_m_equal__String_String_r_bool(ref __result, ref *this.__content, ref *other.__content);
-        return __result;
-    }
-
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__String_r_int64_t(ref __result, ref *this.__content);
-        return __result;
-    }
-
-    public String add(String other){
-        String __result = new String();RLCNative.rl_m_add__String_String_r_String(ref *__result.__content, ref *this.__content, ref *other.__content);
-        return __result;
     }
 
     public bool equal(char* other){
@@ -2205,9 +2140,62 @@ unsafe public class String{
         return __result;
     }
 
+    public bool not_equal(String other){
+        bool __result = false;
+        RLCNative.rl_m_not_equal__String_String_r_bool(ref __result, ref *this.__content, ref *other.__content);
+        return __result;
+    }
+
+    public sbyte back(){
+        sbyte* __result = null;
+        RLCNative.rl_m_back__String_r_int8_tRef(ref __result, ref *this.__content);
+        return * __result;
+    }
+
+    public sbyte get(long index){
+        sbyte* __result = null;
+        RLCNative.rl_m_get__String_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
+        return * __result;
+    }
+
+    public String add(String other){
+        String __result = new String();RLCNative.rl_m_add__String_String_r_String(ref *__result.__content, ref *this.__content, ref *other.__content);
+        return __result;
+    }
+
     public long count(sbyte b){
         long __result = 0;
         RLCNative.rl_m_count__String_int8_t_r_int64_t(ref __result, ref *this.__content, ref b);
+        return __result;
+    }
+
+    public void append_quoted(String str){
+        RLCNative.rl_m_append_quoted__String_String(ref *this.__content, ref *str.__content);
+    }
+
+    public void append(String str){
+        RLCNative.rl_m_append__String_String(ref *this.__content, ref *str.__content);
+    }
+
+    public bool equal(String other){
+        bool __result = false;
+        RLCNative.rl_m_equal__String_String_r_bool(ref __result, ref *this.__content, ref *other.__content);
+        return __result;
+    }
+
+    public void reverse(){
+        RLCNative.rl_m_reverse__String(ref *this.__content);
+    }
+
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__String_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+    public bool not_equal(char* other){
+        bool __result = false;
+        RLCNative.rl_m_not_equal__String_strlit_r_bool(ref __result, ref *this.__content, ref other);
         return __result;
     }
 
@@ -2221,37 +2209,13 @@ unsafe public class String{
         RLCNative.rl_m_append__String_strlit(ref *this.__content, ref str);
     }
 
-    public sbyte get(long index){
-        sbyte* __result = null;
-        RLCNative.rl_m_get__String_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
-        return * __result;
-    }
-
     public void append(sbyte b){
         RLCNative.rl_m_append__String_int8_t(ref *this.__content, ref b);
-    }
-
-    public void append_quoted(String str){
-        RLCNative.rl_m_append_quoted__String_String(ref *this.__content, ref *str.__content);
-    }
-
-    public bool not_equal(char* other){
-        bool __result = false;
-        RLCNative.rl_m_not_equal__String_strlit_r_bool(ref __result, ref *this.__content, ref other);
-        return __result;
-    }
-
-    public void reverse(){
-        RLCNative.rl_m_reverse__String(ref *this.__content);
     }
 
     public String to_indented_lines(){
         String __result = new String();RLCNative.rl_m_to_indented_lines__String_r_String(ref *__result.__content, ref *this.__content);
         return __result;
-    }
-
-    public void append(String str){
-        RLCNative.rl_m_append__String_String(ref *this.__content, ref *str.__content);
     }
 
 }
@@ -2287,6 +2251,11 @@ unsafe public class VectorTStringT{
         RLCNative.rl_m_append__VectorTStringT_String(ref *this.__content, ref *value.__content);
     }
 
+    public String pop(){
+        String __result = new String();RLCNative.rl_m_pop__VectorTStringT_r_String(ref *__result.__content, ref *this.__content);
+        return __result;
+    }
+
     public String get(long index){
         String.Content* __result = null;
         RLCNative.rl_m_get__VectorTStringT_int64_t_r_StringRef(ref __result, ref *this.__content, ref index);
@@ -2296,11 +2265,6 @@ unsafe public class VectorTStringT{
     public long size(){
         long __result = 0;
         RLCNative.rl_m_size__VectorTStringT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
-    }
-
-    public String pop(){
-        String __result = new String();RLCNative.rl_m_pop__VectorTStringT_r_String(ref *__result.__content, ref *this.__content);
         return __result;
     }
 
@@ -2429,14 +2393,14 @@ unsafe public class VectorTAnyGameActionT{
     public void assign(VectorTAnyGameActionT other) {    RLCNative.rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT(ref *this.__content, ref *other.__content);
     }
 
-    public void append(AnyGameAction value){
-        RLCNative.rl_m_append__VectorTAnyGameActionT_AnyGameAction(ref *this.__content, ref *value.__content);
-    }
-
     public AnyGameAction get(long index){
         AnyGameAction.Content* __result = null;
         RLCNative.rl_m_get__VectorTAnyGameActionT_int64_t_r_AnyGameActionRef(ref __result, ref *this.__content, ref index);
         return new AnyGameAction(__result);
+    }
+
+    public void append(AnyGameAction value){
+        RLCNative.rl_m_append__VectorTAnyGameActionT_AnyGameAction(ref *this.__content, ref *value.__content);
     }
 
     public long size(){
@@ -2474,6 +2438,10 @@ unsafe public class VectorTGameMarkT{
     public void assign(VectorTGameMarkT other) {    RLCNative.rl_m_assign__VectorTGameMarkT_VectorTGameMarkT(ref *this.__content, ref *other.__content);
     }
 
+    public void append(GameMark value){
+        RLCNative.rl_m_append__VectorTGameMarkT_GameMark(ref *this.__content, ref *value.__content);
+    }
+
     public long size(){
         long __result = 0;
         RLCNative.rl_m_size__VectorTGameMarkT_r_int64_t(ref __result, ref *this.__content);
@@ -2484,10 +2452,6 @@ unsafe public class VectorTGameMarkT{
         GameMark.Content* __result = null;
         RLCNative.rl_m_get__VectorTGameMarkT_int64_t_r_GameMarkRef(ref __result, ref *this.__content, ref index);
         return new GameMark(__result);
-    }
-
-    public void append(GameMark value){
-        RLCNative.rl_m_append__VectorTGameMarkT_GameMark(ref *this.__content, ref *value.__content);
     }
 
 }
@@ -2519,14 +2483,14 @@ unsafe public class VectorTBIntT0T3TT{
     public void assign(VectorTBIntT0T3TT other) {    RLCNative.rl_m_assign__VectorTBIntT0T3TT_VectorTBIntT0T3TT(ref *this.__content, ref *other.__content);
     }
 
-    public void append(BIntT0T3T value){
-        RLCNative.rl_m_append__VectorTBIntT0T3TT_BIntT0T3T(ref *this.__content, ref *value.__content);
-    }
-
     public BIntT0T3T get(long index){
         BIntT0T3T.Content* __result = null;
         RLCNative.rl_m_get__VectorTBIntT0T3TT_int64_t_r_BIntT0T3TRef(ref __result, ref *this.__content, ref index);
         return new BIntT0T3T(__result);
+    }
+
+    public void append(BIntT0T3T value){
+        RLCNative.rl_m_append__VectorTBIntT0T3TT_BIntT0T3T(ref *this.__content, ref *value.__content);
     }
 
     public long size(){
@@ -2561,14 +2525,14 @@ unsafe public class Range{
     public void assign(Range other) {    RLCNative.rl_m_assign__Range_Range(ref *this.__content, ref *other.__content);
     }
 
-    public void set_size(long new_size){
-        RLCNative.rl_m_set_size__Range_int64_t(ref *this.__content, ref new_size);
-    }
-
     public long size(){
         long __result = 0;
         RLCNative.rl_m_size__Range_r_int64_t(ref __result, ref *this.__content);
         return __result;
+    }
+
+    public void set_size(long new_size){
+        RLCNative.rl_m_set_size__Range_int64_t(ref *this.__content, ref new_size);
     }
 
     public long get(long i){
@@ -2614,11 +2578,11 @@ unsafe public class Board{
     [StructLayout(LayoutKind.Sequential)]
     public struct Content {
         public BIntT0T3T_9.Content slots;
-        public bool playerTurn;
+        public bool player_turn;
     }
     public BIntT0T3T_9 slots { get => new BIntT0T3T_9(&__content->slots); set => __content->slots = *value.__content;}
 
-    public bool playerTurn { get => __content->playerTurn; set => __content->playerTurn = value;}
+    public bool player_turn { get => __content->player_turn; set => __content->player_turn = value;}
 
     public Board(Board.Content* referred) {
         owning = false;
@@ -2637,18 +2601,16 @@ unsafe public class Board{
     public void assign(Board other) {    RLCNative.rl_m_assign__Board_Board(ref *this.__content, ref *other.__content);
     }
 
+    public bool three_in_a_line_player(long player_id){
+        bool __result = false;
+        RLCNative.rl_m_three_in_a_line_player__Board_int64_t_r_bool(ref __result, ref *this.__content, ref player_id);
+        return __result;
+    }
+
     public bool three_in_a_line_player_row(long player_id, long row){
         bool __result = false;
         RLCNative.rl_m_three_in_a_line_player_row__Board_int64_t_int64_t_r_bool(ref __result, ref *this.__content, ref player_id, ref row);
         return __result;
-    }
-
-    public void next_turn(){
-        RLCNative.rl_m_next_turn__Board(ref *this.__content);
-    }
-
-    public void set(long x, long y, long val){
-        RLCNative.rl_m_set__Board_int64_t_int64_t_int64_t(ref *this.__content, ref x, ref y, ref val);
     }
 
     public bool full(){
@@ -2657,16 +2619,18 @@ unsafe public class Board{
         return __result;
     }
 
-    public bool three_in_a_line_player(long player_id){
-        bool __result = false;
-        RLCNative.rl_m_three_in_a_line_player__Board_int64_t_r_bool(ref __result, ref *this.__content, ref player_id);
-        return __result;
-    }
-
     public long current_player(){
         long __result = 0;
         RLCNative.rl_m_current_player__Board_r_int64_t(ref __result, ref *this.__content);
         return __result;
+    }
+
+    public void set(long x, long y, long val){
+        RLCNative.rl_m_set__Board_int64_t_int64_t_int64_t(ref *this.__content, ref x, ref y, ref val);
+    }
+
+    public void next_turn(){
+        RLCNative.rl_m_next_turn__Board(ref *this.__content);
     }
 
     public long get(long x, long y){

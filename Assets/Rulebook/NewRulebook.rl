@@ -7,7 +7,7 @@ import Fuzzer
 
 cls Board:
     BInt<0, 3>[9] slots
-    Bool playerTurn
+    Bool player_turn
 
     fun get(Int x, Int y) -> Int:
         return self.slots[x + (y*3)].value
@@ -44,10 +44,10 @@ cls Board:
         return false
 
     fun current_player() -> Int:
-        return int(self.playerTurn) + 1
+        return int(self.player_turn) + 1
 
     fun next_turn():
-        self.playerTurn = !self.playerTurn
+        self.player_turn = !self.player_turn
 
 
 @classes
@@ -59,21 +59,12 @@ act play() -> Game:
         }
         board.set(x.value, y.value, board.current_player())
 
+        if x == 2 and !board.full():
+            act mark(BInt<0, 3> x, BInt<0, 3> y) {
+                board.get(x.value, y.value) == 0
+            }
+            board.set(x.value, y.value, board.current_player())
+
         if board.three_in_a_line_player(board.current_player()):
             return
         board.next_turn()
-
-fun get_current_player(Game g) -> Int:
-    return int(g.board.playerTurn)
-
-fun score(Game g, Int player_id) -> Float:
-    if !g.is_done(): 
-        return 0.0 
-    if g.board.three_in_a_line_player(player_id + 1):
-        return 1.0
-    else if g.board.three_in_a_line_player(((player_id + 1)% 2) + 1):
-        return -1.0
-    return 0.0
-
-fun get_num_players() -> Int:
-    return 2
