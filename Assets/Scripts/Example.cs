@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class Example : MonoBehaviour
 {
     private static Game globalGame = null;
+    private static String serialized = null;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +18,29 @@ public class Example : MonoBehaviour
         return globalGame;
     }
 
-    public static bool applyAction(AnyGameAction action) {
+    static public void before_hot_reload()
+    {
+        Debug.Log("Before Hot Reload");
+        if (globalGame != null)
+            serialized = RLC.to_string(globalGame);
+        else
+            serialized = null;
+    }
+
+    static public void after_hot_reload()
+    {
+        Debug.Log("Attempt Hot Reload");
+        if (serialized == null)
+            return;
+        if (!RLC.from_string(globalGame, serialized))
+        {
+            Debug.Log("Could not hot reload the code, it has changed too much");
+            Application.Quit();
+        }
+    }
+
+    public static bool applyAction(AnyGameAction action)
+    {
         if (!RLC.can_apply(action, globalGame))
             return false;
         RLC.apply(action, globalGame);
@@ -25,7 +48,13 @@ public class Example : MonoBehaviour
         return true;
     }
 
-    static string actionToString(AnyGameAction action) {
+    public static bool can_apply(AnyGameAction action)
+    {
+        return RLC.can_apply(action, globalGame);
+    }
+
+    static string actionToString(AnyGameAction action)
+    {
         return toCSString(RLC.to_string(action));
     }
 

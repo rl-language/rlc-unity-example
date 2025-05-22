@@ -17,6 +17,8 @@ static string DlLastError()
 		}
 static bool   FreeLibrary (IntPtr h)  { dlclose(h); return true; }
 static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
+    public delegate void Delegaterl_m_init__Range(ref Range.Content self);
+    public static Delegaterl_m_init__Range rl_m_init__Range;
     public delegate void Delegaterl_m_init__AnyGameAction(ref AnyGameAction.Content self);
     public static Delegaterl_m_init__AnyGameAction rl_m_init__AnyGameAction;
     public delegate void Delegaterl_m_init__Game(ref Game.Content self);
@@ -49,6 +51,8 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_m_assign__GameMark_GameMark rl_m_assign__GameMark_GameMark;
     public delegate void Delegaterl_m_assign__BIntT0T3T_BIntT0T3T(ref BIntT0T3T.Content self, ref BIntT0T3T.Content other);
     public static Delegaterl_m_assign__BIntT0T3T_BIntT0T3T rl_m_assign__BIntT0T3T_BIntT0T3T;
+    public delegate void Delegaterl_m_assign__Range_Range(ref Range.Content self, ref Range.Content other);
+    public static Delegaterl_m_assign__Range_Range rl_m_assign__Range_Range;
     public delegate void Delegaterl_m_assign__String_String(ref String.Content self, ref String.Content other);
     public static Delegaterl_m_assign__String_String rl_m_assign__String_String;
     public delegate void Delegaterl_m_drop__String(ref String.Content self);
@@ -153,10 +157,10 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_m_assign__VectorTint8_tT_VectorTint8_tT rl_m_assign__VectorTint8_tT_VectorTint8_tT;
     public delegate void Delegaterl_m_assign__VectorTStringT_VectorTStringT(ref VectorTStringT.Content self, ref VectorTStringT.Content other);
     public static Delegaterl_m_assign__VectorTStringT_VectorTStringT rl_m_assign__VectorTStringT_VectorTStringT;
-    public delegate void Delegaterl_m_assign__VectorTboolT_VectorTboolT(ref VectorTboolT.Content self, ref VectorTboolT.Content other);
-    public static Delegaterl_m_assign__VectorTboolT_VectorTboolT rl_m_assign__VectorTboolT_VectorTboolT;
     public delegate void Delegaterl_m_assign__VectorTdoubleT_VectorTdoubleT(ref VectorTdoubleT.Content self, ref VectorTdoubleT.Content other);
     public static Delegaterl_m_assign__VectorTdoubleT_VectorTdoubleT rl_m_assign__VectorTdoubleT_VectorTdoubleT;
+    public delegate void Delegaterl_m_assign__VectorTboolT_VectorTboolT(ref VectorTboolT.Content self, ref VectorTboolT.Content other);
+    public static Delegaterl_m_assign__VectorTboolT_VectorTboolT rl_m_assign__VectorTboolT_VectorTboolT;
     public delegate void Delegaterl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT(ref VectorTAnyGameActionT.Content self, ref VectorTAnyGameActionT.Content other);
     public static Delegaterl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT;
     public delegate void Delegaterl_m_assign__VectorTGameMarkT_VectorTGameMarkT(ref VectorTGameMarkT.Content self, ref VectorTGameMarkT.Content other);
@@ -245,8 +249,6 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_append_to_string__bool_String rl_append_to_string__bool_String;
     public delegate void Delegaterl_append_to_string__BIntT0T3T_9_String(ref BIntT0T3T_9.Content to_add, ref String.Content output);
     public static Delegaterl_append_to_string__BIntT0T3T_9_String rl_append_to_string__BIntT0T3T_9_String;
-    public delegate void Delegaterl_to_string__int64_t_r_String(ref String.Content __result, ref long to_stringyfi);
-    public static Delegaterl_to_string__int64_t_r_String rl_to_string__int64_t_r_String;
     public delegate void Delegaterl_to_string__AnyGameAction_r_String(ref String.Content __result, ref AnyGameAction.Content to_stringyfi);
     public static Delegaterl_to_string__AnyGameAction_r_String rl_to_string__AnyGameAction_r_String;
     public delegate void Delegaterl_to_string__Game_r_String(ref String.Content __result, ref Game.Content to_stringyfi);
@@ -279,10 +281,6 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_from_string__Game_String_r_bool rl_from_string__Game_String_r_bool;
     public delegate void Delegaterl_from_string__AnyGameAction_String_int64_t_r_bool(ref bool __result, ref AnyGameAction.Content result, ref String.Content buffer, ref long index);
     public static Delegaterl_from_string__AnyGameAction_String_int64_t_r_bool rl_from_string__AnyGameAction_String_int64_t_r_bool;
-    public delegate void Delegaterl_m_assign__BIntT0T3T_int64_t(ref BIntT0T3T.Content self, ref long other);
-    public static Delegaterl_m_assign__BIntT0T3T_int64_t rl_m_assign__BIntT0T3T_int64_t;
-    public delegate void Delegaterl_m_equal__BIntT0T3T_int64_t_r_bool(ref bool __result, ref BIntT0T3T.Content self, ref long other);
-    public static Delegaterl_m_equal__BIntT0T3T_int64_t_r_bool rl_m_equal__BIntT0T3T_int64_t_r_bool;
     public delegate void Delegaterl_m_init__BIntT0T3T(ref BIntT0T3T.Content self);
     public static Delegaterl_m_init__BIntT0T3T rl_m_init__BIntT0T3T;
     public delegate void Delegaterl_append_to_vector__BIntT0T3T_VectorTint8_tT(ref BIntT0T3T.Content to_add, ref VectorTint8_tT.Content output);
@@ -415,6 +413,16 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_emit_observation_tensor_warnings__Game rl_emit_observation_tensor_warnings__Game;
     public delegate void Delegaterl_gen_printer_parser_();
     public static Delegaterl_gen_printer_parser_ rl_gen_printer_parser_;
+    public delegate void Delegaterl_m_set_size__Range_int64_t(ref Range.Content self, ref long new_size);
+    public static Delegaterl_m_set_size__Range_int64_t rl_m_set_size__Range_int64_t;
+    public delegate void Delegaterl_m_size__Range_r_int64_t(ref long __result, ref Range.Content self);
+    public static Delegaterl_m_size__Range_r_int64_t rl_m_size__Range_r_int64_t;
+    public delegate void Delegaterl_m_get__Range_int64_t_r_int64_t(ref long __result, ref Range.Content self, ref long i);
+    public static Delegaterl_m_get__Range_int64_t_r_int64_t rl_m_get__Range_int64_t_r_int64_t;
+    public delegate void Delegaterl_range__int64_t_r_Range(ref Range.Content __result, ref long size);
+    public static Delegaterl_range__int64_t_r_Range rl_range__int64_t_r_Range;
+    public delegate void Delegaterl_fuzz__VectorTint8_tT(ref VectorTint8_tT.Content input);
+    public static Delegaterl_fuzz__VectorTint8_tT rl_fuzz__VectorTint8_tT;
     public delegate void Delegaterl_m_next_turn__Board(ref Board.Content self);
     public static Delegaterl_m_next_turn__Board rl_m_next_turn__Board;
     public delegate void Delegaterl_m_current_player__Board_r_int64_t(ref long __result, ref Board.Content self);
@@ -451,19 +459,16 @@ static IntPtr GetProcAddress(IntPtr h,string n)=>dlsym(h,n);
     public static Delegaterl_score__Game_int64_t_r_double rl_score__Game_int64_t_r_double;
     public delegate void Delegaterl_get_num_players__r_int64_t(ref long __result);
     public static Delegaterl_get_num_players__r_int64_t rl_get_num_players__r_int64_t;
-    public delegate void Delegaterl_fuzz__VectorTint8_tT(ref VectorTint8_tT.Content input);
-    public static Delegaterl_fuzz__VectorTint8_tT rl_fuzz__VectorTint8_tT;
-    public delegate void Delegaterl_main__r_int64_t(ref long __result);
-    public static Delegaterl_main__r_int64_t rl_main__r_int64_t;
-    public delegate void Delegaterl_pretty_print__Game(ref Game.Content g);
-    public static Delegaterl_pretty_print__Game rl_pretty_print__Game;
 internal static string SharedLibExtension =>
  RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? ".dll" :
 RuntimeInformation.IsOSPlatform(OSPlatform.OSX)     ? ".dylib" :
 /* default to Linux */ ".so";
 private static IntPtr _lib;
     public static void setup(string libName) {
-    _lib = RLCNative.LoadLibrary(libName);if (_lib == IntPtr.Zero) throw new Exception("Could not find library " + libName );IntPtr rl_m_init__AnyGameAction_ptr = GetProcAddress(_lib, "rl_m_init__AnyGameAction");
+    _lib = RLCNative.LoadLibrary(libName);if (_lib == IntPtr.Zero) throw new Exception("Could not find library " + libName );IntPtr rl_m_init__Range_ptr = GetProcAddress(_lib, "rl_m_init__Range");
+        if (rl_m_init__Range_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_init__Range");
+        rl_m_init__Range = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_init__Range>(rl_m_init__Range_ptr);
+        IntPtr rl_m_init__AnyGameAction_ptr = GetProcAddress(_lib, "rl_m_init__AnyGameAction");
         if (rl_m_init__AnyGameAction_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_init__AnyGameAction");
         rl_m_init__AnyGameAction = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_init__AnyGameAction>(rl_m_init__AnyGameAction_ptr);
         IntPtr rl_m_init__Game_ptr = GetProcAddress(_lib, "rl_m_init__Game");
@@ -511,6 +516,9 @@ private static IntPtr _lib;
         IntPtr rl_m_assign__BIntT0T3T_BIntT0T3T_ptr = GetProcAddress(_lib, "rl_m_assign__BIntT0T3T_BIntT0T3T");
         if (rl_m_assign__BIntT0T3T_BIntT0T3T_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__BIntT0T3T_BIntT0T3T");
         rl_m_assign__BIntT0T3T_BIntT0T3T = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__BIntT0T3T_BIntT0T3T>(rl_m_assign__BIntT0T3T_BIntT0T3T_ptr);
+        IntPtr rl_m_assign__Range_Range_ptr = GetProcAddress(_lib, "rl_m_assign__Range_Range");
+        if (rl_m_assign__Range_Range_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__Range_Range");
+        rl_m_assign__Range_Range = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__Range_Range>(rl_m_assign__Range_Range_ptr);
         IntPtr rl_m_assign__String_String_ptr = GetProcAddress(_lib, "rl_m_assign__String_String");
         if (rl_m_assign__String_String_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__String_String");
         rl_m_assign__String_String = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__String_String>(rl_m_assign__String_String_ptr);
@@ -667,12 +675,12 @@ private static IntPtr _lib;
         IntPtr rl_m_assign__VectorTStringT_VectorTStringT_ptr = GetProcAddress(_lib, "rl_m_assign__VectorTStringT_VectorTStringT");
         if (rl_m_assign__VectorTStringT_VectorTStringT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__VectorTStringT_VectorTStringT");
         rl_m_assign__VectorTStringT_VectorTStringT = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__VectorTStringT_VectorTStringT>(rl_m_assign__VectorTStringT_VectorTStringT_ptr);
-        IntPtr rl_m_assign__VectorTboolT_VectorTboolT_ptr = GetProcAddress(_lib, "rl_m_assign__VectorTboolT_VectorTboolT");
-        if (rl_m_assign__VectorTboolT_VectorTboolT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__VectorTboolT_VectorTboolT");
-        rl_m_assign__VectorTboolT_VectorTboolT = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__VectorTboolT_VectorTboolT>(rl_m_assign__VectorTboolT_VectorTboolT_ptr);
         IntPtr rl_m_assign__VectorTdoubleT_VectorTdoubleT_ptr = GetProcAddress(_lib, "rl_m_assign__VectorTdoubleT_VectorTdoubleT");
         if (rl_m_assign__VectorTdoubleT_VectorTdoubleT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__VectorTdoubleT_VectorTdoubleT");
         rl_m_assign__VectorTdoubleT_VectorTdoubleT = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__VectorTdoubleT_VectorTdoubleT>(rl_m_assign__VectorTdoubleT_VectorTdoubleT_ptr);
+        IntPtr rl_m_assign__VectorTboolT_VectorTboolT_ptr = GetProcAddress(_lib, "rl_m_assign__VectorTboolT_VectorTboolT");
+        if (rl_m_assign__VectorTboolT_VectorTboolT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__VectorTboolT_VectorTboolT");
+        rl_m_assign__VectorTboolT_VectorTboolT = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__VectorTboolT_VectorTboolT>(rl_m_assign__VectorTboolT_VectorTboolT_ptr);
         IntPtr rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT_ptr = GetProcAddress(_lib, "rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT");
         if (rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT");
         rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT>(rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT_ptr);
@@ -805,9 +813,6 @@ private static IntPtr _lib;
         IntPtr rl_append_to_string__BIntT0T3T_9_String_ptr = GetProcAddress(_lib, "rl_append_to_string__BIntT0T3T_9_String");
         if (rl_append_to_string__BIntT0T3T_9_String_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_append_to_string__BIntT0T3T_9_String");
         rl_append_to_string__BIntT0T3T_9_String = Marshal.GetDelegateForFunctionPointer<Delegaterl_append_to_string__BIntT0T3T_9_String>(rl_append_to_string__BIntT0T3T_9_String_ptr);
-        IntPtr rl_to_string__int64_t_r_String_ptr = GetProcAddress(_lib, "rl_to_string__int64_t_r_String");
-        if (rl_to_string__int64_t_r_String_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_to_string__int64_t_r_String");
-        rl_to_string__int64_t_r_String = Marshal.GetDelegateForFunctionPointer<Delegaterl_to_string__int64_t_r_String>(rl_to_string__int64_t_r_String_ptr);
         IntPtr rl_to_string__AnyGameAction_r_String_ptr = GetProcAddress(_lib, "rl_to_string__AnyGameAction_r_String");
         if (rl_to_string__AnyGameAction_r_String_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_to_string__AnyGameAction_r_String");
         rl_to_string__AnyGameAction_r_String = Marshal.GetDelegateForFunctionPointer<Delegaterl_to_string__AnyGameAction_r_String>(rl_to_string__AnyGameAction_r_String_ptr);
@@ -856,12 +861,6 @@ private static IntPtr _lib;
         IntPtr rl_from_string__AnyGameAction_String_int64_t_r_bool_ptr = GetProcAddress(_lib, "rl_from_string__AnyGameAction_String_int64_t_r_bool");
         if (rl_from_string__AnyGameAction_String_int64_t_r_bool_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_from_string__AnyGameAction_String_int64_t_r_bool");
         rl_from_string__AnyGameAction_String_int64_t_r_bool = Marshal.GetDelegateForFunctionPointer<Delegaterl_from_string__AnyGameAction_String_int64_t_r_bool>(rl_from_string__AnyGameAction_String_int64_t_r_bool_ptr);
-        IntPtr rl_m_assign__BIntT0T3T_int64_t_ptr = GetProcAddress(_lib, "rl_m_assign__BIntT0T3T_int64_t");
-        if (rl_m_assign__BIntT0T3T_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_assign__BIntT0T3T_int64_t");
-        rl_m_assign__BIntT0T3T_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_assign__BIntT0T3T_int64_t>(rl_m_assign__BIntT0T3T_int64_t_ptr);
-        IntPtr rl_m_equal__BIntT0T3T_int64_t_r_bool_ptr = GetProcAddress(_lib, "rl_m_equal__BIntT0T3T_int64_t_r_bool");
-        if (rl_m_equal__BIntT0T3T_int64_t_r_bool_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_equal__BIntT0T3T_int64_t_r_bool");
-        rl_m_equal__BIntT0T3T_int64_t_r_bool = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_equal__BIntT0T3T_int64_t_r_bool>(rl_m_equal__BIntT0T3T_int64_t_r_bool_ptr);
         IntPtr rl_m_init__BIntT0T3T_ptr = GetProcAddress(_lib, "rl_m_init__BIntT0T3T");
         if (rl_m_init__BIntT0T3T_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_init__BIntT0T3T");
         rl_m_init__BIntT0T3T = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_init__BIntT0T3T>(rl_m_init__BIntT0T3T_ptr);
@@ -1060,6 +1059,21 @@ private static IntPtr _lib;
         IntPtr rl_gen_printer_parser__ptr = GetProcAddress(_lib, "rl_gen_printer_parser_");
         if (rl_gen_printer_parser__ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_gen_printer_parser_");
         rl_gen_printer_parser_ = Marshal.GetDelegateForFunctionPointer<Delegaterl_gen_printer_parser_>(rl_gen_printer_parser__ptr);
+        IntPtr rl_m_set_size__Range_int64_t_ptr = GetProcAddress(_lib, "rl_m_set_size__Range_int64_t");
+        if (rl_m_set_size__Range_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_set_size__Range_int64_t");
+        rl_m_set_size__Range_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_set_size__Range_int64_t>(rl_m_set_size__Range_int64_t_ptr);
+        IntPtr rl_m_size__Range_r_int64_t_ptr = GetProcAddress(_lib, "rl_m_size__Range_r_int64_t");
+        if (rl_m_size__Range_r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_size__Range_r_int64_t");
+        rl_m_size__Range_r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_size__Range_r_int64_t>(rl_m_size__Range_r_int64_t_ptr);
+        IntPtr rl_m_get__Range_int64_t_r_int64_t_ptr = GetProcAddress(_lib, "rl_m_get__Range_int64_t_r_int64_t");
+        if (rl_m_get__Range_int64_t_r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_get__Range_int64_t_r_int64_t");
+        rl_m_get__Range_int64_t_r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_get__Range_int64_t_r_int64_t>(rl_m_get__Range_int64_t_r_int64_t_ptr);
+        IntPtr rl_range__int64_t_r_Range_ptr = GetProcAddress(_lib, "rl_range__int64_t_r_Range");
+        if (rl_range__int64_t_r_Range_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_range__int64_t_r_Range");
+        rl_range__int64_t_r_Range = Marshal.GetDelegateForFunctionPointer<Delegaterl_range__int64_t_r_Range>(rl_range__int64_t_r_Range_ptr);
+        IntPtr rl_fuzz__VectorTint8_tT_ptr = GetProcAddress(_lib, "rl_fuzz__VectorTint8_tT");
+        if (rl_fuzz__VectorTint8_tT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_fuzz__VectorTint8_tT");
+        rl_fuzz__VectorTint8_tT = Marshal.GetDelegateForFunctionPointer<Delegaterl_fuzz__VectorTint8_tT>(rl_fuzz__VectorTint8_tT_ptr);
         IntPtr rl_m_next_turn__Board_ptr = GetProcAddress(_lib, "rl_m_next_turn__Board");
         if (rl_m_next_turn__Board_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_m_next_turn__Board");
         rl_m_next_turn__Board = Marshal.GetDelegateForFunctionPointer<Delegaterl_m_next_turn__Board>(rl_m_next_turn__Board_ptr);
@@ -1114,19 +1128,11 @@ private static IntPtr _lib;
         IntPtr rl_get_num_players__r_int64_t_ptr = GetProcAddress(_lib, "rl_get_num_players__r_int64_t");
         if (rl_get_num_players__r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_get_num_players__r_int64_t");
         rl_get_num_players__r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_get_num_players__r_int64_t>(rl_get_num_players__r_int64_t_ptr);
-        IntPtr rl_fuzz__VectorTint8_tT_ptr = GetProcAddress(_lib, "rl_fuzz__VectorTint8_tT");
-        if (rl_fuzz__VectorTint8_tT_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_fuzz__VectorTint8_tT");
-        rl_fuzz__VectorTint8_tT = Marshal.GetDelegateForFunctionPointer<Delegaterl_fuzz__VectorTint8_tT>(rl_fuzz__VectorTint8_tT_ptr);
-        IntPtr rl_main__r_int64_t_ptr = GetProcAddress(_lib, "rl_main__r_int64_t");
-        if (rl_main__r_int64_t_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_main__r_int64_t");
-        rl_main__r_int64_t = Marshal.GetDelegateForFunctionPointer<Delegaterl_main__r_int64_t>(rl_main__r_int64_t_ptr);
-        IntPtr rl_pretty_print__Game_ptr = GetProcAddress(_lib, "rl_pretty_print__Game");
-        if (rl_pretty_print__Game_ptr == IntPtr.Zero) throw new Exception("Could not find symbol rl_pretty_print__Game");
-        rl_pretty_print__Game = Marshal.GetDelegateForFunctionPointer<Delegaterl_pretty_print__Game>(rl_pretty_print__Game_ptr);
     }
 
     public static void teardown() {
     if (_lib == IntPtr.Zero) return;
+        rl_m_init__Range = null;
         rl_m_init__AnyGameAction = null;
         rl_m_init__Game = null;
         rl_m_init__Board = null;
@@ -1143,6 +1149,7 @@ private static IntPtr _lib;
         rl_m_assign__AnyGameAction_AnyGameAction = null;
         rl_m_assign__GameMark_GameMark = null;
         rl_m_assign__BIntT0T3T_BIntT0T3T = null;
+        rl_m_assign__Range_Range = null;
         rl_m_assign__String_String = null;
         rl_m_drop__String = null;
         rl_print_string__String = null;
@@ -1195,8 +1202,8 @@ private static IntPtr _lib;
         rl_m_resize__VectorTdoubleT_int64_t = null;
         rl_m_assign__VectorTint8_tT_VectorTint8_tT = null;
         rl_m_assign__VectorTStringT_VectorTStringT = null;
-        rl_m_assign__VectorTboolT_VectorTboolT = null;
         rl_m_assign__VectorTdoubleT_VectorTdoubleT = null;
+        rl_m_assign__VectorTboolT_VectorTboolT = null;
         rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT = null;
         rl_m_assign__VectorTGameMarkT_VectorTGameMarkT = null;
         rl_m_assign__VectorTBIntT0T3TT_VectorTBIntT0T3TT = null;
@@ -1241,7 +1248,6 @@ private static IntPtr _lib;
         rl_append_to_string__String_String = null;
         rl_append_to_string__bool_String = null;
         rl_append_to_string__BIntT0T3T_9_String = null;
-        rl_to_string__int64_t_r_String = null;
         rl_to_string__AnyGameAction_r_String = null;
         rl_to_string__Game_r_String = null;
         rl_is_space__int8_t_r_bool = null;
@@ -1258,8 +1264,6 @@ private static IntPtr _lib;
         rl_from_string__AnyGameAction_String_r_bool = null;
         rl_from_string__Game_String_r_bool = null;
         rl_from_string__AnyGameAction_String_int64_t_r_bool = null;
-        rl_m_assign__BIntT0T3T_int64_t = null;
-        rl_m_equal__BIntT0T3T_int64_t_r_bool = null;
         rl_m_init__BIntT0T3T = null;
         rl_append_to_vector__BIntT0T3T_VectorTint8_tT = null;
         rl_parse_from_vector__BIntT0T3T_VectorTint8_tT_int64_t_r_bool = null;
@@ -1326,6 +1330,11 @@ private static IntPtr _lib;
         rl_to_observation_tensor_warnings__Game_r_String = null;
         rl_emit_observation_tensor_warnings__Game = null;
         rl_gen_printer_parser_ = null;
+        rl_m_set_size__Range_int64_t = null;
+        rl_m_size__Range_r_int64_t = null;
+        rl_m_get__Range_int64_t_r_int64_t = null;
+        rl_range__int64_t_r_Range = null;
+        rl_fuzz__VectorTint8_tT = null;
         rl_m_next_turn__Board = null;
         rl_m_current_player__Board_r_int64_t = null;
         rl_m_three_in_a_line_player__Board_int64_t_r_bool = null;
@@ -1344,9 +1353,6 @@ private static IntPtr _lib;
         rl_get_current_player__Game_r_int64_t = null;
         rl_score__Game_int64_t_r_double = null;
         rl_get_num_players__r_int64_t = null;
-        rl_fuzz__VectorTint8_tT = null;
-        rl_main__r_int64_t = null;
-        rl_pretty_print__Game = null;
         RLCNative.FreeLibrary(_lib);_lib = IntPtr.Zero;
     }
 
@@ -1501,11 +1507,6 @@ unsafe class RLC {
 
     public static void append_to_string(BIntT0T3T_9 to_add, String output){
         RLCNative.rl_append_to_string__BIntT0T3T_9_String(ref *to_add.__content, ref *output.__content);
-    }
-
-    public static String to_string(long to_stringyfi){
-        String __result = new String();RLCNative.rl_to_string__int64_t_r_String(ref *__result.__content, ref to_stringyfi);
-        return __result;
     }
 
     public static String to_string(AnyGameAction to_stringyfi){
@@ -1929,6 +1930,15 @@ unsafe class RLC {
         RLCNative.rl_gen_printer_parser_();
     }
 
+    public static Range range(long size){
+        Range __result = new Range();RLCNative.rl_range__int64_t_r_Range(ref *__result.__content, ref size);
+        return __result;
+    }
+
+    public static void fuzz(VectorTint8_tT input){
+        RLCNative.rl_fuzz__VectorTint8_tT(ref *input.__content);
+    }
+
     public static void apply(GameMark self, Game frame){
         RLCNative.rl_apply__GameMark_Game(ref *self.__content, ref *frame.__content);
     }
@@ -1974,18 +1984,43 @@ unsafe class RLC {
         return __result;
     }
 
-    public static void fuzz(VectorTint8_tT input){
-        RLCNative.rl_fuzz__VectorTint8_tT(ref *input.__content);
+}
+
+unsafe public class VectorTboolT{
+    public Content* __content;
+    private bool owning;
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Content {
+        private bool* _data;
+        private long _size;
+        private long _capacity;
+    }
+    public VectorTboolT(VectorTboolT.Content* referred) {
+        owning = false;
+        __content = referred;
+    }
+    public VectorTboolT() {
+        __content = (VectorTboolT.Content*) Marshal.AllocHGlobal(sizeof(VectorTboolT.Content));
+        owning = true;
+        RLCNative.rl_m_init__VectorTboolT(ref *this.__content);
+    }
+    ~VectorTboolT() {
+        if (!owning)
+            return;
+            RLCNative.rl_m_drop__VectorTboolT(ref *this.__content);
+    Marshal.FreeHGlobal((IntPtr)__content);
+    }
+    public void assign(VectorTboolT other) {    RLCNative.rl_m_assign__VectorTboolT_VectorTboolT(ref *this.__content, ref *other.__content);
     }
 
-    public static long main(){
-        long __result = 0;
-        RLCNative.rl_main__r_int64_t(ref __result);
-        return __result;
+    public bool get(long index){
+        bool* __result = null;
+        RLCNative.rl_m_get__VectorTboolT_int64_t_r_boolRef(ref __result, ref *this.__content, ref index);
+        return * __result;
     }
 
-    public static void pretty_print(Game g){
-        RLCNative.rl_pretty_print__Game(ref *g.__content);
+    public void append(bool value){
+        RLCNative.rl_m_append__VectorTboolT_bool(ref *this.__content, ref value);
     }
 
 }
@@ -2017,10 +2052,8 @@ unsafe public class VectorTint8_tT{
     public void assign(VectorTint8_tT other) {    RLCNative.rl_m_assign__VectorTint8_tT_VectorTint8_tT(ref *this.__content, ref *other.__content);
     }
 
-    public sbyte pop(){
-        sbyte __result = 0;
-        RLCNative.rl_m_pop__VectorTint8_tT_r_int8_t(ref __result, ref *this.__content);
-        return __result;
+    public void drop_back(long quantity){
+        RLCNative.rl_m_drop_back__VectorTint8_tT_int64_t(ref *this.__content, ref quantity);
     }
 
     public sbyte get(long index){
@@ -2029,23 +2062,25 @@ unsafe public class VectorTint8_tT{
         return * __result;
     }
 
-    public void append(sbyte value){
-        RLCNative.rl_m_append__VectorTint8_tT_int8_t(ref *this.__content, ref value);
-    }
-
     public sbyte back(){
         sbyte* __result = null;
         RLCNative.rl_m_back__VectorTint8_tT_r_int8_tRef(ref __result, ref *this.__content);
         return * __result;
     }
 
-    public void drop_back(long quantity){
-        RLCNative.rl_m_drop_back__VectorTint8_tT_int64_t(ref *this.__content, ref quantity);
+    public void append(sbyte value){
+        RLCNative.rl_m_append__VectorTint8_tT_int8_t(ref *this.__content, ref value);
     }
 
     public long size(){
         long __result = 0;
         RLCNative.rl_m_size__VectorTint8_tT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+    public sbyte pop(){
+        sbyte __result = 0;
+        RLCNative.rl_m_pop__VectorTint8_tT_r_int8_t(ref __result, ref *this.__content);
         return __result;
     }
 
@@ -2082,16 +2117,6 @@ unsafe public class VectorTdoubleT{
         RLCNative.rl_m_resize__VectorTdoubleT_int64_t(ref *this.__content, ref new_size);
     }
 
-    public void append(double value){
-        RLCNative.rl_m_append__VectorTdoubleT_double(ref *this.__content, ref value);
-    }
-
-    public double get(long index){
-        double* __result = null;
-        RLCNative.rl_m_get__VectorTdoubleT_int64_t_r_doubleRef(ref __result, ref *this.__content, ref index);
-        return * __result;
-    }
-
     public long size(){
         long __result = 0;
         RLCNative.rl_m_size__VectorTdoubleT_r_int64_t(ref __result, ref *this.__content);
@@ -2104,43 +2129,14 @@ unsafe public class VectorTdoubleT{
         return __result;
     }
 
-}
-
-unsafe public class VectorTboolT{
-    public Content* __content;
-    private bool owning;
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Content {
-        private bool* _data;
-        private long _size;
-        private long _capacity;
-    }
-    public VectorTboolT(VectorTboolT.Content* referred) {
-        owning = false;
-        __content = referred;
-    }
-    public VectorTboolT() {
-        __content = (VectorTboolT.Content*) Marshal.AllocHGlobal(sizeof(VectorTboolT.Content));
-        owning = true;
-        RLCNative.rl_m_init__VectorTboolT(ref *this.__content);
-    }
-    ~VectorTboolT() {
-        if (!owning)
-            return;
-            RLCNative.rl_m_drop__VectorTboolT(ref *this.__content);
-    Marshal.FreeHGlobal((IntPtr)__content);
-    }
-    public void assign(VectorTboolT other) {    RLCNative.rl_m_assign__VectorTboolT_VectorTboolT(ref *this.__content, ref *other.__content);
-    }
-
-    public void append(bool value){
-        RLCNative.rl_m_append__VectorTboolT_bool(ref *this.__content, ref value);
-    }
-
-    public bool get(long index){
-        bool* __result = null;
-        RLCNative.rl_m_get__VectorTboolT_int64_t_r_boolRef(ref __result, ref *this.__content, ref index);
+    public double get(long index){
+        double* __result = null;
+        RLCNative.rl_m_get__VectorTdoubleT_int64_t_r_doubleRef(ref __result, ref *this.__content, ref index);
         return * __result;
+    }
+
+    public void append(double value){
+        RLCNative.rl_m_append__VectorTdoubleT_double(ref *this.__content, ref value);
     }
 
 }
@@ -2170,6 +2166,12 @@ unsafe public class String{
     public void assign(String other) {    RLCNative.rl_m_assign__String_String(ref *this.__content, ref *other.__content);
     }
 
+    public sbyte back(){
+        sbyte* __result = null;
+        RLCNative.rl_m_back__String_r_int8_tRef(ref __result, ref *this.__content);
+        return * __result;
+    }
+
     public void drop_back(long quantity){
         RLCNative.rl_m_drop_back__String_int64_t(ref *this.__content, ref quantity);
     }
@@ -2180,48 +2182,10 @@ unsafe public class String{
         return __result;
     }
 
-    public String to_indented_lines(){
-        String __result = new String();RLCNative.rl_m_to_indented_lines__String_r_String(ref *__result.__content, ref *this.__content);
-        return __result;
-    }
-
-    public void reverse(){
-        RLCNative.rl_m_reverse__String(ref *this.__content);
-    }
-
-    public bool not_equal(char* other){
-        bool __result = false;
-        RLCNative.rl_m_not_equal__String_strlit_r_bool(ref __result, ref *this.__content, ref other);
-        return __result;
-    }
-
-    public String add(String other){
-        String __result = new String();RLCNative.rl_m_add__String_String_r_String(ref *__result.__content, ref *this.__content, ref *other.__content);
-        return __result;
-    }
-
     public bool equal(String other){
         bool __result = false;
         RLCNative.rl_m_equal__String_String_r_bool(ref __result, ref *this.__content, ref *other.__content);
         return __result;
-    }
-
-    public void append(char* str){
-        RLCNative.rl_m_append__String_strlit(ref *this.__content, ref str);
-    }
-
-    public sbyte back(){
-        sbyte* __result = null;
-        RLCNative.rl_m_back__String_r_int8_tRef(ref __result, ref *this.__content);
-        return * __result;
-    }
-
-    public void append(String str){
-        RLCNative.rl_m_append__String_String(ref *this.__content, ref *str.__content);
-    }
-
-    public void append_quoted(String str){
-        RLCNative.rl_m_append_quoted__String_String(ref *this.__content, ref *str.__content);
     }
 
     public long size(){
@@ -2230,21 +2194,8 @@ unsafe public class String{
         return __result;
     }
 
-    public long count(sbyte b){
-        long __result = 0;
-        RLCNative.rl_m_count__String_int8_t_r_int64_t(ref __result, ref *this.__content, ref b);
-        return __result;
-    }
-
-    public sbyte get(long index){
-        sbyte* __result = null;
-        RLCNative.rl_m_get__String_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
-        return * __result;
-    }
-
-    public bool substring_matches(char* lit, long pos){
-        bool __result = false;
-        RLCNative.rl_m_substring_matches__String_strlit_int64_t_r_bool(ref __result, ref *this.__content, ref lit, ref pos);
+    public String add(String other){
+        String __result = new String();RLCNative.rl_m_add__String_String_r_String(ref *__result.__content, ref *this.__content, ref *other.__content);
         return __result;
     }
 
@@ -2254,8 +2205,53 @@ unsafe public class String{
         return __result;
     }
 
+    public long count(sbyte b){
+        long __result = 0;
+        RLCNative.rl_m_count__String_int8_t_r_int64_t(ref __result, ref *this.__content, ref b);
+        return __result;
+    }
+
+    public bool substring_matches(char* lit, long pos){
+        bool __result = false;
+        RLCNative.rl_m_substring_matches__String_strlit_int64_t_r_bool(ref __result, ref *this.__content, ref lit, ref pos);
+        return __result;
+    }
+
+    public void append(char* str){
+        RLCNative.rl_m_append__String_strlit(ref *this.__content, ref str);
+    }
+
+    public sbyte get(long index){
+        sbyte* __result = null;
+        RLCNative.rl_m_get__String_int64_t_r_int8_tRef(ref __result, ref *this.__content, ref index);
+        return * __result;
+    }
+
     public void append(sbyte b){
         RLCNative.rl_m_append__String_int8_t(ref *this.__content, ref b);
+    }
+
+    public void append_quoted(String str){
+        RLCNative.rl_m_append_quoted__String_String(ref *this.__content, ref *str.__content);
+    }
+
+    public bool not_equal(char* other){
+        bool __result = false;
+        RLCNative.rl_m_not_equal__String_strlit_r_bool(ref __result, ref *this.__content, ref other);
+        return __result;
+    }
+
+    public void reverse(){
+        RLCNative.rl_m_reverse__String(ref *this.__content);
+    }
+
+    public String to_indented_lines(){
+        String __result = new String();RLCNative.rl_m_to_indented_lines__String_r_String(ref *__result.__content, ref *this.__content);
+        return __result;
+    }
+
+    public void append(String str){
+        RLCNative.rl_m_append__String_String(ref *this.__content, ref *str.__content);
     }
 
 }
@@ -2287,25 +2283,25 @@ unsafe public class VectorTStringT{
     public void assign(VectorTStringT other) {    RLCNative.rl_m_assign__VectorTStringT_VectorTStringT(ref *this.__content, ref *other.__content);
     }
 
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTStringT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
-    }
-
     public void append(String value){
         RLCNative.rl_m_append__VectorTStringT_String(ref *this.__content, ref *value.__content);
-    }
-
-    public String pop(){
-        String __result = new String();RLCNative.rl_m_pop__VectorTStringT_r_String(ref *__result.__content, ref *this.__content);
-        return __result;
     }
 
     public String get(long index){
         String.Content* __result = null;
         RLCNative.rl_m_get__VectorTStringT_int64_t_r_StringRef(ref __result, ref *this.__content, ref index);
         return new String(__result);
+    }
+
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__VectorTStringT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+    public String pop(){
+        String __result = new String();RLCNative.rl_m_pop__VectorTStringT_r_String(ref *__result.__content, ref *this.__content);
+        return __result;
     }
 
 }
@@ -2334,16 +2330,6 @@ unsafe public class BIntT0T3T{
         Marshal.FreeHGlobal((IntPtr)__content);
     }
     public void assign(BIntT0T3T other) {    RLCNative.rl_m_assign__BIntT0T3T_BIntT0T3T(ref *this.__content, ref *other.__content);
-    }
-
-    public bool equal(long other){
-        bool __result = false;
-        RLCNative.rl_m_equal__BIntT0T3T_int64_t_r_bool(ref __result, ref *this.__content, ref other);
-        return __result;
-    }
-
-    public void assign(long other){
-        RLCNative.rl_m_assign__BIntT0T3T_int64_t(ref *this.__content, ref other);
     }
 
 }
@@ -2443,10 +2429,8 @@ unsafe public class VectorTAnyGameActionT{
     public void assign(VectorTAnyGameActionT other) {    RLCNative.rl_m_assign__VectorTAnyGameActionT_VectorTAnyGameActionT(ref *this.__content, ref *other.__content);
     }
 
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTAnyGameActionT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
+    public void append(AnyGameAction value){
+        RLCNative.rl_m_append__VectorTAnyGameActionT_AnyGameAction(ref *this.__content, ref *value.__content);
     }
 
     public AnyGameAction get(long index){
@@ -2455,8 +2439,10 @@ unsafe public class VectorTAnyGameActionT{
         return new AnyGameAction(__result);
     }
 
-    public void append(AnyGameAction value){
-        RLCNative.rl_m_append__VectorTAnyGameActionT_AnyGameAction(ref *this.__content, ref *value.__content);
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__VectorTAnyGameActionT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
     }
 
 }
@@ -2488,6 +2474,12 @@ unsafe public class VectorTGameMarkT{
     public void assign(VectorTGameMarkT other) {    RLCNative.rl_m_assign__VectorTGameMarkT_VectorTGameMarkT(ref *this.__content, ref *other.__content);
     }
 
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__VectorTGameMarkT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
     public GameMark get(long index){
         GameMark.Content* __result = null;
         RLCNative.rl_m_get__VectorTGameMarkT_int64_t_r_GameMarkRef(ref __result, ref *this.__content, ref index);
@@ -2496,12 +2488,6 @@ unsafe public class VectorTGameMarkT{
 
     public void append(GameMark value){
         RLCNative.rl_m_append__VectorTGameMarkT_GameMark(ref *this.__content, ref *value.__content);
-    }
-
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTGameMarkT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
     }
 
 }
@@ -2533,10 +2519,8 @@ unsafe public class VectorTBIntT0T3TT{
     public void assign(VectorTBIntT0T3TT other) {    RLCNative.rl_m_assign__VectorTBIntT0T3TT_VectorTBIntT0T3TT(ref *this.__content, ref *other.__content);
     }
 
-    public long size(){
-        long __result = 0;
-        RLCNative.rl_m_size__VectorTBIntT0T3TT_r_int64_t(ref __result, ref *this.__content);
-        return __result;
+    public void append(BIntT0T3T value){
+        RLCNative.rl_m_append__VectorTBIntT0T3TT_BIntT0T3T(ref *this.__content, ref *value.__content);
     }
 
     public BIntT0T3T get(long index){
@@ -2545,8 +2529,52 @@ unsafe public class VectorTBIntT0T3TT{
         return new BIntT0T3T(__result);
     }
 
-    public void append(BIntT0T3T value){
-        RLCNative.rl_m_append__VectorTBIntT0T3TT_BIntT0T3T(ref *this.__content, ref *value.__content);
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__VectorTBIntT0T3TT_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+}
+
+unsafe public class Range{
+    public Content* __content;
+    private bool owning;
+    [StructLayout(LayoutKind.Sequential)]
+    public struct Content {
+        private long _size;
+    }
+    public Range(Range.Content* referred) {
+        owning = false;
+        __content = referred;
+    }
+    public Range() {
+        __content = (Range.Content*) Marshal.AllocHGlobal(sizeof(Range.Content));
+        owning = true;
+        RLCNative.rl_m_init__Range(ref *this.__content);
+    }
+    ~Range() {
+        if (!owning)
+            return;
+        Marshal.FreeHGlobal((IntPtr)__content);
+    }
+    public void assign(Range other) {    RLCNative.rl_m_assign__Range_Range(ref *this.__content, ref *other.__content);
+    }
+
+    public void set_size(long new_size){
+        RLCNative.rl_m_set_size__Range_int64_t(ref *this.__content, ref new_size);
+    }
+
+    public long size(){
+        long __result = 0;
+        RLCNative.rl_m_size__Range_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+    public long get(long i){
+        long __result = 0;
+        RLCNative.rl_m_get__Range_int64_t_r_int64_t(ref __result, ref *this.__content, ref i);
+        return __result;
     }
 
 }
@@ -2609,9 +2637,9 @@ unsafe public class Board{
     public void assign(Board other) {    RLCNative.rl_m_assign__Board_Board(ref *this.__content, ref *other.__content);
     }
 
-    public long get(long x, long y){
-        long __result = 0;
-        RLCNative.rl_m_get__Board_int64_t_int64_t_r_int64_t(ref __result, ref *this.__content, ref x, ref y);
+    public bool three_in_a_line_player_row(long player_id, long row){
+        bool __result = false;
+        RLCNative.rl_m_three_in_a_line_player_row__Board_int64_t_int64_t_r_bool(ref __result, ref *this.__content, ref player_id, ref row);
         return __result;
     }
 
@@ -2619,9 +2647,13 @@ unsafe public class Board{
         RLCNative.rl_m_next_turn__Board(ref *this.__content);
     }
 
-    public bool three_in_a_line_player_row(long player_id, long row){
+    public void set(long x, long y, long val){
+        RLCNative.rl_m_set__Board_int64_t_int64_t_int64_t(ref *this.__content, ref x, ref y, ref val);
+    }
+
+    public bool full(){
         bool __result = false;
-        RLCNative.rl_m_three_in_a_line_player_row__Board_int64_t_int64_t_r_bool(ref __result, ref *this.__content, ref player_id, ref row);
+        RLCNative.rl_m_full__Board_r_bool(ref __result, ref *this.__content);
         return __result;
     }
 
@@ -2631,19 +2663,15 @@ unsafe public class Board{
         return __result;
     }
 
-    public bool full(){
-        bool __result = false;
-        RLCNative.rl_m_full__Board_r_bool(ref __result, ref *this.__content);
-        return __result;
-    }
-
-    public void set(long x, long y, long val){
-        RLCNative.rl_m_set__Board_int64_t_int64_t_int64_t(ref *this.__content, ref x, ref y, ref val);
-    }
-
     public long current_player(){
         long __result = 0;
         RLCNative.rl_m_current_player__Board_r_int64_t(ref __result, ref *this.__content);
+        return __result;
+    }
+
+    public long get(long x, long y){
+        long __result = 0;
+        RLCNative.rl_m_get__Board_int64_t_int64_t_r_int64_t(ref __result, ref *this.__content, ref x, ref y);
         return __result;
     }
 

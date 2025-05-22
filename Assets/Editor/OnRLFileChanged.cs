@@ -14,9 +14,20 @@ public class LinuxUnloadLibrary : MonoBehaviour {
     private static void EarlyLoad()
     {
         UnityEngine.Debug.Log("Early load called");
+        Example.before_hot_reload();
         RLCNative.teardown();
         UnityEngine.Debug.Log("Loading Rulebook lib" + getLibToLoad());
-        RLCNative.setup(getLibToLoad());
+        try
+        {
+            RLCNative.setup(getLibToLoad());
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogError(e.Message);
+            if (Application.isPlaying)
+                EditorApplication.isPlaying = false;
+        }
+        Example.after_hot_reload();
     }
 
     public static string getLibToLoad() {
@@ -101,7 +112,7 @@ class CustomAssetPostprocessor : AssetPostprocessor
 
         foreach (string asset in importedAssets) {
 
-            if (asset.EndsWith(".rl")) {
+            if (asset.EndsWith("NewRulebook.rl")) {
                 string fullpath = Path.Combine(Application.dataPath.Substring(0, Application.dataPath.Length - "Assets".Length), asset);
 
                 if (getLibToLoad() != null)
@@ -110,12 +121,18 @@ class CustomAssetPostprocessor : AssetPostprocessor
                     File.Delete(getLibToLoad());
                 }
                 RunExternalTool("/home/massimo/rlc-infrastructure/rlc-release/install/bin/rlc", "\"" + fullpath + "\" --shared -o " + "\"" + fulllib + "\"");                
-                RunExternalTool("/home/massimo/rlc-infrastructure/rlc-release/install/bin/rlc", "\"" + fullpath + "\" --c-sharp -o " + "\"" + fullcs + "\"");                
+                if (!Application.isPlaying) // if the application is playing don't regenerate the header for the library.
+                    RunExternalTool("/home/massimo/rlc-infrastructure/rlc-release/install/bin/rlc", "\"" + fullpath + "\" --c-sharp -o " + "\"" + fullcs + "\"");                
                 loadedAnything = true;
             }
         }
         if (loadedAnything)
         {
+            if (Application.isPlaying)
+            {
+                EarlyLoad();
+            }
+
             AssetDatabase.Refresh();
         }
     }
